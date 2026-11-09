@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "briefing": "tsx src/server/briefing-cli.ts",
+    "digest": "tsx src/server/digest-cli.ts",
     "init": "node scripts/init-config.mjs",
     "licenses": "node scripts/collect-licenses.mjs",
     "test:smoke": "node scripts/smoke-test.mjs"

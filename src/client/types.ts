@@ -68,7 +68,7 @@ export interface EntryPage {
 
 export interface BriefingSummary {
   id: string
-  kind: 'morning' | 'evening'
+  kind: 'morning' | 'evening' | 'digest'
   subject: string
   status: 'generated' | 'delivered' | 'acknowledged' | string
   windowStart: string

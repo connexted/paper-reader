@@ -220,6 +220,8 @@ export class BriefingService {
   async renderExisting(id: string): Promise<ReturnType<typeof renderBriefing> | null> {
     const record = this.db.getBriefing(id)
     if (!record) return null
+    // Category digests are stored fully rendered and have no confirmation link.
+    if (record.kind === 'digest') return { subject: record.subject, html: record.html, text: record.text }
 
     const entries = new Map<string, Entry>()
     await Promise.all([...new Set([...this.db.entryIdsForBriefing(id), ...record.selection.news.flatMap(item => item.backgroundEntryIds || [])])].map(async entryId => {

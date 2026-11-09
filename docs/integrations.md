@@ -126,6 +126,20 @@ Official setup and authentication guidance:
 - https://learn.chatgpt.com/docs/auth
 - https://opencode.ai/docs/
 
+## Folder digests
+
+A folder digest summarizes the last 24 hours of one FreshRSS folder, such as
+Gaming. It uses the same AI provider and Briefing generation switch as the
+briefings. Without AI it stores a plain list of the new articles. Digests
+appear in Briefings as "Daily digest" and never count as delivered briefings.
+
+```sh
+docker compose exec paper node dist-server/digest-cli.js Gaming --hours 24 --language Dutch
+```
+
+Run it from cron or another scheduler for a daily digest. The folder name is
+matched case-insensitively; an unknown name lists the available folders.
+
 ## Full-text fallback
 
 PAPER_READER_FALLBACK_ENABLED defaults to false. Setting it to true permits

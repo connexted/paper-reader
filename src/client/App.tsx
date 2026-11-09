@@ -1872,7 +1872,7 @@ function BriefingLibrary({ onBack }: { onBack: () => void }) {
       <header><button className="briefing-library-back mobile-back icon-button" onClick={onBack} aria-label="Back to sources"><Icon name="back" /></button><h1>Briefings</h1><span>{briefings.length}</span></header>
       {error && <p className="form-error" role="alert">{error} <button onClick={() => setRetry(value => value + 1)}>Retry</button></p>}
       {loading && <p className="briefing-empty">Loading briefings</p>}
-      {!error && !loading && !briefings.length && <div className="briefing-empty"><h2>No briefings yet</h2><p>The morning and evening editions will appear here after they are generated.</p></div>}
+      {!error && !loading && !briefings.length && <div className="briefing-empty"><h2>No briefings yet</h2><p>The morning and evening editions and folder digests will appear here after they are generated.</p></div>}
       {briefings.map(item => <button key={item.id} className={selectedId === item.id ? 'active' : ''} onClick={() => setSelectedId(item.id)}>
         <span className="briefing-kind">{item.kind}</span>
         <strong>{briefingTitle(item.subject)}</strong>
@@ -1894,6 +1894,7 @@ function briefingTitle(subject: string): string {
 }
 
 function briefingStatus(item: BriefingSummary): string {
+  if (item.kind === 'digest') return 'Daily digest'
   if (item.acknowledgedAt || item.status === 'acknowledged') return 'Read and acknowledged'
   if (item.deliveredAt || item.status === 'delivered') return 'Delivered'
   return 'Generated, not delivered'

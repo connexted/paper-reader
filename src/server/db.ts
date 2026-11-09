@@ -12,7 +12,7 @@ import type { Discussion } from '../shared/discussion.js'
 
 export interface BriefingRecord {
   id: string
-  kind: 'morning' | 'evening'
+  kind: 'morning' | 'evening' | 'digest'
   windowStart: string
   cutoff: string
   subject: string
@@ -1593,7 +1593,7 @@ export class PaperDatabase {
     if (!row) return null
     return {
       id: String(row.id),
-      kind: row.kind as 'morning' | 'evening',
+      kind: row.kind as BriefingRecord['kind'],
       windowStart: String(row.window_start),
       cutoff: String(row.cutoff),
       subject: String(row.subject),
