@@ -128,14 +128,27 @@ Official setup and authentication guidance:
 
 ## Folder digests
 
-A folder digest summarizes the last 24 hours of one FreshRSS folder, such as
+A folder digest summarizes the new articles of one FreshRSS folder, such as
 Gaming. It uses the same AI provider and Briefing generation switch as the
 briefings. Without AI it stores a plain list of the new articles. Digests
 appear in Briefings as "Daily digest" and never count as delivered briefings.
 
 ```sh
-docker compose exec paper node dist-server/digest-cli.js Gaming --hours 24 --language Dutch
+docker compose exec paper node dist-server/digest-cli.js Gaming --language Dutch
 ```
+
+Each digest continues where the previous digest for that folder ended, based
+on when FreshRSS fetched an article. Articles therefore never repeat, and an
+article that arrives late with an older publication date is still included.
+The first digest of a folder covers `--hours` (default 24). A later digest
+looks back at most `--max-hours` (default 48), for example after downtime.
+Add `--test` to build a digest without moving the starting point.
+
+When Pulse has grouped an article into a collection, the digest marks the item
+as a developing story with a link to the collection. The model receives the
+earlier articles and earlier digest summaries for that story, opens with where
+the story stood and then explains what is new. The item lists the two most
+recent earlier articles.
 
 Run it from cron or another scheduler for a daily digest. The folder name is
 matched case-insensitively; an unknown name lists the available folders.
